@@ -149,8 +149,74 @@ combined_logical <- c(num_logical, char_logical)
 #################################################################### 
 ####################################################################   Challenge END
 
+# so you have to be careful -- if your column of weights is listed as "character" > go back in excel and see you accidentally typed "x" in one spot. Ah! R decided to make the whole column "character" because of that. Fix it! 
 
 
+
+
+
+
+
+####################################################################  SUBSETTING VECTORS 
+
+# square bracket subsetting (granddad version; the core way to do it. put location of value in that)
+animals[3] #pulled out "dog"
+animals[c(2,3)] #pulls out "rat" and "dog" 
+animals[c(3,1,3)] # output: "dog" "moose" "dog"
+
+####################################################################  CONDITIONAL SUBSETTING  
+
+# True/False can also be T/F - do never name anything these 4 things. never do it. just dont. stop it. 
+weight_g
+weight_g[c(T,F,T,T,F,T,T)] #this skips the 2nd and 5th entry (50 and 89) -- NA bc I have 6 not 7 values
+weight_g>50 #TRUE FALSE TRUE... etc. 
+
+weight_g[weight_g>50] #gives back all values in vector that are > 50 
+
+####################################################################  MULTIPLE CONDITIONS 
+
+weight_g[weight_g<30 | weight_g>50]   # & is and ... | is "or" (Command+backslash thing)
+weight_g[weight_g>=30 & weight_g==50] #something greater/equal to 30 AND exactly = to 50
+
+
+
+####################################################################  SEARCHING FOR CHARACTERS
+
+animals[animals=="cat" | animals=="rat"]
+animals %in% c("rat", "antelope", "jackelope", "hippogriff")     # %in% allows you to test if any of the elements of a search vector are foun
+
+
+
+
+
+
+####################################################################    
+#################################################################### 
+####################################################################   Challenge START
+"four">"five"  #TRUE. bc they are characters, not numbers! 
+"six">"five"   #TRUE
+"eight">"five" #FALSE      -- oh! it's looking at the order of the first letter in alphabet! 
+"A">"B" #FALSE
+"Z">"A" #TRUE 
+####################################################################    
+#################################################################### 
+####################################################################   Challenge END
+
+
+
+####################################################################   MISSING VALUES
+height <- c(2,4,4,NA,6) 
+str(height) #output:  num [1:5] 2 4 4 NA 6
+mean(height) #output: NA -- bc it can't mean an "NA" even though it knows what it is
+max(height)  #this takes max value of vector   OUTPUT:NA
+mean(x = height,na.rm = TRUE) #by default na.rm is FALSE. Strips out the NA. 
+max(height,na.rm = TRUE)
+
+
+
+is.na(height) #1st 3 are NA, 4th is, 5th isn't. 
+na.omit(height)
+complete.cases(height) #these are complete cases, one that is NA is not, etc. the opposite of one above... 
 
 
 
