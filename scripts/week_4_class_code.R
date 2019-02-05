@@ -211,6 +211,8 @@ as.numeric(levels(year_factor)) [year_factor] #results are stored as integers (a
 ############################################################################ ugh
 ############################################################################ RENAMING FACTORS 
 
+# $ addresses Column by name 
+
 #reassign something to "sex" 
 
 sex<-surveys$sex
