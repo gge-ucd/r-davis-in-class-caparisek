@@ -9,7 +9,14 @@
 
 
 #2) Read portal_data_joined.csv into R using the read.csv command and create a dataframe named surveys (just like we did in class).
+
+# if it's not there yet: 
+# download.file(url="https://ndownloader.figshare.com/files/2292169",destfile = "data/portal_data_joined.csv")
+
 surveyhmwk<- read.csv(file = "data/portal_data_joined.csv")
+
+
+ 
 
 
 
@@ -20,11 +27,12 @@ str(surveys_subset) #check
 
 
 
-#4) CHALLENGE: Select all rows that have a hindfoot_length greater than 32, save these in a new data.frame named surveys_long_feet, 
+#4) CHALLENGE: Select all rows that have a hindfoot_length greater than 32, save these in a new data.frame named surveys_long_feet, then plot its hindfoot_length values as a histogram using the hist function....
 ?subset #what?
 surveys_long_feet<-subset(surveys_subset,hindfoot_length>32) #yeah?
 str(surveys_long_feet) # it seems to work but there are NAs and some values <32! why? 
 ##  Or ...    surveys_subset[c("hindfoot_length">32),]  ?????? same issue as above 
+hist(surveys_long_feet$hindfoot_length) # all these are >32, how is the error in #4 fixed???
 
 
 
@@ -33,15 +41,11 @@ str(surveys_long_feet) # it seems to work but there are NAs and some values <32!
 as.character(surveys_long_feet$hindfoot_length)  # $ addresses Column by name 
 
 
-# then plot its hindfoot_length values as a histogram using the hist function....
-# Plot the hindfoot_lengths in a histogram (if this doesn’t work, just leave it, and think about it during Part II of the assignment, wink wink).Commit & Push the R script to GitHub - check your repository on GitHub and make sure your script is there.
 
-hist(surveys_long_feet$hindfoot_length) # all these are >32, how is the error in #4 fixed???
+# Plot the hindfoot_lengths in a histogram (if this doesn’t work, just leave it, and think about it during Part II of the assignment, wink wink).
+hist(as.character(surveys_long_feet$hindfoot_length )) # ERROR: histogram of characters
 
-
-
-
-
+# Commit & Push the R script to GitHub - check your repository on GitHub and make sure your script is there
 
 
 
