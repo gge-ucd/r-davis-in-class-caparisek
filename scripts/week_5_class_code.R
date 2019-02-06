@@ -1,18 +1,17 @@
-# Week 3: February 05, 2019
+# Week 3: February 05, 2019 - R-DAVIS Class Code - Week 5
 
 # GUESS WHAT I FOUND:  
-                        # https://twitter.com/mathematicalm3l/status/1090720774464421889/video/1
-                        # https://github.com/melissanjohnson/pupR 
+    # https://twitter.com/mathematicalm3l/status/1090720774464421889/video/1
+    # https://github.com/melissanjohnson/pupR 
 
-# Step 1: install package "devtools" --  for helping develop your own package.
+# Step 1: install package "devtools" -- for helping develop your own package.
 # Step 2: run the line:    devtools::install_github("melissanjohnson/pupR") 
+devtools::install_github("melissanjohnson/pupR")   
+    # check console to answer, option 1-7, just pick 7 ("dontupdate")
+    # note: if console has a "1:" instead of ">" it's waiting for this             answer! Click next to "1:" and click "esc", or answer "7"
 
 
-devtools::install_github("melissanjohnson/pupR")   #doesn't work :( 
-
-#note if the console has a "1:" and not a ">" it's waiting for an answer! Click next to "1:" and click "esc" 
 library(pupR)
-
 pupR()
 
 
@@ -23,8 +22,8 @@ pupR()
 
 
 
-
-########################################################################################################
+# Ok, now let's get to class
+#############################################################################
 
 
 # last week: bracketing and subsetting using base-R 
