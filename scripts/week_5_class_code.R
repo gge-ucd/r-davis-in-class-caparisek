@@ -11,6 +11,18 @@
 devtools::install_github("melissanjohnson/pupR")   #doesn't work :( 
 
 #note if the console has a "1:" and not a ">" it's waiting for an answer! Click next to "1:" and click "esc" 
+library(pupR)
+
+pupR()
+
+
+
+
+
+
+
+
+
 
 ########################################################################################################
 
