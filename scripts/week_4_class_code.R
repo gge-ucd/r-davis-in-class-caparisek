@@ -1,5 +1,5 @@
 ####################################################################    [R-DAVIS-2019_01_29]
-# Week 3: January 29, 2019
+# Week 4: January 29, 2019
 
 # Today: "Data Frames" https://gge-ucd.github.io/R-DAVIS/lesson_data_frames_ecology.html 
 # class livecode:  https://www.dl.dropboxusercontent.com/s/pzeuwxk1jfbe2sr/Week_4_LiveCode.R?dl=0 
