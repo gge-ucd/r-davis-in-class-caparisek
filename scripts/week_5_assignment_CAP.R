@@ -87,6 +87,14 @@ SurveyNA
 #Answer: sex(1748), hindfoot_length(3348), weight (2503)  
 1748+3348+2503 # =7599! Same number as in METHOD 1. 
 
+####################### oops, did you want to know *which* species? *which* plot? *which* taxa? If so, add **group_by()** line. 
+#EXAMPLE
+surveys %>% 
+  filter(is.na(sex)) %>% #look at all the NAs in df, but you have to go column by colum (one by one)
+  group_by(sex) %>% View 
+
+
+
 
 
 
