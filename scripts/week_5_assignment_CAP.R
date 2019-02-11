@@ -1,5 +1,8 @@
 # WEEK 5 ASSIGNMENT
 # Alright folks, we’ve ventured into the tidyverse! We’re going to test out your dplyr skills, pipe (%>%) some data, and make a tibble or two.
+
+# DPLYR CHEATSHEET:   https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf 
+
 ############################################################################################
 ############################################################################################ MY NOTES (START)
 #justcurious...
