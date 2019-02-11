@@ -51,7 +51,7 @@ surveys
 
 # OH !! 
 
-newt_r_cute<-surveys%>% 
+newt_r_cute<-surveys%>% #🦎
   filter(weight>30 & weight<60)%>%
   head() #prints 1st 6 rows of resulting tibble
 # OR !! 
@@ -60,20 +60,12 @@ newt_r_cute1<-surveys %>%
   slice(1:6)  ## It does work! Just don't use VIEW()
 
 
-
-
-
-
 #4) Make a tibble that shows the max (hint hint) weight for each species+sex combination, and name it biggest_critters. Use the arrange function to look at the biggest and smallest critters in the tibble (use ?, tab-complete, or Google if you need help with arrange).
 biggest_critters<- surveys %>% 
   group_by(species,sex) %>%
   summarize(max_weight = max(weight,na.rm=TRUE)) %>% 
   arrange(desc(max_weight)) #arrange by vecor max weight in descending order
 str(biggest_critters) #check 
-
-
-
-
 
 
 
@@ -89,7 +81,7 @@ surveys %>%
   tally()  %>% View 
 
 #METHOD 3
-SurveyNA<-colSums(is.na(surveys)) #heeeeey.
+SurveyNA<-colSums(is.na(surveys)) #heeeeey.😏
 SurveyNA 
 
 #Answer: sex(1748), hindfoot_length(3348), weight (2503)  
