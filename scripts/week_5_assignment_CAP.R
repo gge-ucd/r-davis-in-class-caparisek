@@ -136,6 +136,7 @@ str(AbvAvg) #just checkin' "TRUE" is a "logic value" 😬 it is indeed
 surveys %>% 
   group_by(species) %>% 
   mutate(scaled_weight = scale(weight)) %>% 
+  arrange(desc(scaled_weight)) %>% 
   View
    
 #RESULTS: Low (-4.8) and many others... High (10 and 15) ... some NAs
