@@ -51,11 +51,11 @@ surveys
 
 # OH !! 
 
-newt_r_cute<-surveys%>% #🦎
+newts_r_cute<-surveys%>% #🦎
   filter(weight>30 & weight<60)%>%
   head() #prints 1st 6 rows of resulting tibble
 # OR !! 
-newt_r_cute1<-surveys %>%
+newts_r_cute1<-surveys %>%
   filter(weight>30 & weight<60)%>%
   slice(1:6)  ## It does work! Just don't use VIEW()
 
