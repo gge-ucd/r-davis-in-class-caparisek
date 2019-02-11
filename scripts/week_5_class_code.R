@@ -168,12 +168,7 @@ surveys %>%  #tells us where the NAs are in species
   tally()                        # NEW 
 
 # you can use group_by with multiple columns
-surveys %>% 
-  group_by(sex,species_id) %>%
-  summarize(mean_weight = mean(weight,na.rm=TRUE)) %>% 
-  View  #notice the NaN (not a number) 's 
 
-#REDO
 surveys %>% 
   filter(!is.na(weight)) %>% #get's rid of the NaN's 
   group_by(sex,species_id) %>%
