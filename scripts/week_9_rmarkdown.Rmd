@@ -107,6 +107,58 @@ https://www.codecogs.com/latex/eqneditor.php
 
 
 
+Creating a map:
+
+```{r}
+library(leaflet)
+
+# filter data down 
+storms <- filter(storms, year > 2006)
+
+# set up a color palette:
+pal <- colorNumeric(
+  palette = "RdYlBu",
+  domain = storms$wind)
+
+# make a map
+m <- leaflet() %>% addTiles() %>% 
+  addProviderTiles("Esri.WorldImagery", group = "ESRI Aerial") %>%
+  addProviderTiles("Esri.WorldTopoMap", group = "Topo") %>%
+  
+# proposed sites
+  addCircleMarkers(data=storms, group="Storms",
+                   lng= ~long, lat= ~lat,
+                   stroke=TRUE, weight=0.6, radius=4,
+                   fillOpacity = 0.5, color=~pal(wind)) %>%
+  
+  # add controls for basemaps and data
+  addLayersControl(
+    baseGroups = c("ESRI Aerial", "Topo"),
+    overlayGroups = c("Storms"),
+    options = layersControlOptions(collapsed = T))
+
+m
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
