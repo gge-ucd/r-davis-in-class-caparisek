@@ -72,14 +72,15 @@ mloa2 <- mloa_2001 %>%
 
 #Then, write a function called plot_temp that returns a graph of the temp_C_2m for a single month. The x-axis of the graph should be pulled from a datetime column (so if your data set does not already have a datetime column, you’ll need to create one!)
 
-plot_temp <- function(monthinput, dat = mloa2){
+# https://gge-ucd.github.io/R-DAVIS/lesson_functions.html
+
+plot_temp <- function(monthinput, dat = mloa2){   #monthinput doesn't exist yet 
   df <- filter(dat, month == monthinput)
   plot <- df %>% 
-    ggplot()+ geom_line(aes(x=datetime, y = temp_C_2m), color = "blue")+
+    ggplot()+ geom_line(aes(x=datetime, y = temp_C_2m), color = "purple")+
     theme_bw()
   return(plot)
 }
-
 
 plot_temp(4) #Testing: try to plot of April temps 
 

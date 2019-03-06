@@ -1,0 +1,137 @@
+---
+title: "week_9_rmarkdown"
+author: "Christine Parisek"
+date: "3/5/2019"
+output: html_document
+editor_options: 
+  chunk_output_type: inline
+---
+
+This is an R Markdown document. I can type whatever I want.
+
+**this is bold**
+*this is italic*
+### this will make the font smaller 
+##this will make it slightly bigger 
+
+Cheatsheet to these things here: https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf 
+
+1) save this file 
+2) to view in however it would be. use "knit" button 
+
+HTML : online only
+or knit it to a PDF or word doc to send to your PI (word can be funky)
+PDF does require additional download to work 
+
+
+You can click "insert" button for R or python or other code chunks 
+OR ctrl+alt+i (PC)  cmd+option+i (MAC)
+- use codechunk just like you would other script 
+
+SETTINGS: tell it to just output i nthe consol not inlline 
+
+
+TO not print when we knit ::
+warning=faslse
+message=false,
+echo=FALSE (don't show code) 
+
+or FUNCTION to do this "suppress" for a single library
+  suppressPackageStartupMessages(library(tidyverse))
+```{r, warning=FALSE, message=FALSE}
+
+library(tidyverse)
+glimpse(storms)
+library(viridis)
+
+#create plot with pressure and something on xy axis 
+
+ggplot(data=storms)+
+  geom_jitter(aes(x= as.factor(month), y = pressure, fill=wind), pch= 21, alpha= .05)+
+  scale_fill_viridis_c()+
+  theme_bw()+
+  labs(title= "Hurricane Pressure v Month", subtitle = "with Max Wind Speed", x = "Month")
+
+
+```
+
+writing out equations in Rmarkdown: 
+
+- some instances this requires packages like Latex 
+
+If you want to write an equation, you put a $ on either side of it. 
+
+$\sum_{i=y}^n X_i$
+
+```{r}
+library(knitr)
+
+kable(head(storms),caption="table using kable")
+htmlTable::htmlTable(head(storms))
+
+
+
+
+
+
+
+#make an interactive table 
+DT::datatable(storms)
+
+
+
+
+
+
+library(plotly)  #lets you zoom, lasso, etc. nice to look for patterns! 
+ggplotly(
+  ggplot(data=storms)+
+  geom_jitter(aes(x= as.factor(month), y = pressure, fill=wind), pch= 21, alpha= .05)+
+  scale_fill_viridis_c()+
+  theme_bw()+
+  labs(title= "Hurricane Pressure v Month", subtitle = "with Max Wind Speed", x = "Month"))
+
+```
+
+
+
+Rmarkdown Live Code for second part of class: https://www.dl.dropboxusercontent.com/s/acbpxs63kwxlyxi/Week9_Live_Markdown.Rmd?dl=0
+
+For formatting Equations in RMarkdown
+https://www.codecogs.com/latex/eqneditor.php
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
