@@ -1,0 +1,53 @@
+---
+title: "week_9_assignment_CAP"
+author: "christine parisek"
+date: "3/11/2019"
+output: html_document
+---
+
+>> Part 1: Rmarkdown
+
+**Research**
+ 
+I hope to **develop a lake classification framework for mountain lakes in California to facilitate better conservation management and pinpoint which lakes may be better for reintroduction efforts of native and endemic fish, amphibians**, and other aquatic fauna. The high degree of diversity in lake type within just the small Sierra Nevada lakes that my preliminary data show suggests that concentrating on the overall function and service of smaller lakes and their different types on at this landscape scale may be essential to managing these ecosystems within a broader context. A lake classification scheme has the potential to pre-identify lakes meeting certain criteria that would be able to predict likelihood of favorable or unfavorable outcomes for conservation management attemtns of our state fish, the California Golden Trout (_Oncorhynchus aguabonita_) and endangered endmic amphibians to the region such as the Sierra Nevada Yellow-legged frog (_Rana sierrae_).
+
+![Caption for the picture.](C:/MacintochHD/users/christineparisek/Pictures/IMG_7716.PNG)#NOPE 
+
+
+
+
+>> Part 2
+
+Use the storms data (included in RStudio) to create a plotly graph of the relationship between wind and pressure, where the status of the storm is indicated by a color.
+
+```{r} {r, warning=FALSE, message=FALSE, echo=FALSE}
+
+library(tidyverse)
+library(viridis)
+
+library(plotly)
+glimpse(storms)
+view(storms)
+ggplotly(
+  ggplot(data=storms)+
+    geom_jitter(aes(x=wind,y=pressure, fill=category), pch=21, alpha=0.5)+
+    scale_fill_viridis_c()+
+  theme_bw()+
+  labs(title="Storm Pressure v. Wind Speed", x = "Wind Speed (mph)", y = "Pressure")
+)
+```
+
+
+
+
+Use the storms data (included in RStudio) to create a plotly graph of the relationship between wind and pressure, where the status of the storm is indicated by a color.
+
+Create a table that identifies the mean wind, pressure, ts_diameter, hu_diameter of each status of storm (remember to remove NAs!). Use the package htmlTable. Round each mean to only two decimal places (Hint
+look up the function round)
+CHALLENGE Find the duration, in number of days, of every hurricane from 2010 and later, and then use one of the map functions from purrr to write a sentence saying “Hurricane X lasted Y days” for each of these storms. You can look for some help with these functions here and here.
+
+Knit your Rmrkdown document. Hide the messages from appearing in the knited document. Save and push to Github.
+
+Pull down your partner’s Rmarkdown and see if you can knit the document on your computer.
+
+Answers:
