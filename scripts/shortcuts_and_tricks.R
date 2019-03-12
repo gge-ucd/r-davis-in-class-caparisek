@@ -12,7 +12,7 @@
 
 
 
-# ts (tab) - select snippet for TIME STAMP 
+# ts (tab+shift) - select snippet for TIME STAMP 
 # Sun Feb 17 17:53:00 2019 ------------------------------
 
 
