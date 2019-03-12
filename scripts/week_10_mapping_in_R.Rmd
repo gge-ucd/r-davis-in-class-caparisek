@@ -1,0 +1,249 @@
+---
+title: "mapping_in_R"
+author: "Christine Parisek"
+date: "3/12/2019"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+Ryan Peek's spatial website: https://ryanpeek.github.io/mapping-in-R-workshop/ 
+ 
+ R-Davis google doc: https://docs.google.com/document/d/1A7__xU5bnQMl2hC372Ovm2EIvy26sHDRj_A0V9u2OMo/edit 
+
+![ ../ makes it go UP a folder](../figures/IMG_7716Copy.JPG) 
+
+
+```{r loadlibraries, eval=TRUE, echo=TRUE}
+#command + option + i -- creates a new r code section 
+
+##TOOLS
+install.packages("sf") 
+install.packages("viridis") 
+install.packages("measurements") 
+install.packages("mapview") 
+install.packages("tmap") 
+install.packages("ggspatial") 
+install.packages("ggrepel") 
+install.packages("ggforce")
+install.packages("cowplot") 
+
+
+library(sf) # reading/writing/analysis of spatial data
+library(viridis) # a nice color palette
+library(measurements) # for converting measurements (DMS to DD or UTM)
+library(mapview) # interactive maps
+library(tmap) # good mapping package mostly for static chloropleth style maps
+library(ggspatial) # for adding scale bar/north arrow and basemaps
+library(ggrepel) # labeling ggplot figures
+library(ggforce) # amazing cool package for labeling and fussing 
+library(cowplot) ## MOOOOOOO!! for plotting multiple plots
+
+## DATA
+install.packages("tigris") # ROAD/CENSU DATA, see also the "tidycensus" package
+install.packages("USAboundaries") # great package for getting state/county boundaries
+install.packages("sharpshootR")  # CDEC.snow.courses, CDECquery, CDECsnowQuery
+
+
+library(tigris) # ROAD/CENSU DATA, see also the "tidycensus" package
+library(USAboundaries) # great package for getting state/county boundaries
+library(sharpshootR)  # CDEC.snow.courses, CDECquery, CDECsnowQuery
+
+
+library(tidyverse)
+```
+
+
+```{r readShapefileRGDAL}
+
+install.packages("rgdal")  #OLD. we'll be using sf()
+library(rgdal)
+
+ogrInfo(dsn="../data", layer="rivs_CA_OR_hydroshed") # see shapefile info
+
+#sf package faster and neater ! 
+
+```
+
+
+
+```{r readShapefileSF, eval=FALSE}
+
+#here package to fix Rmd path issues 
+install.packages("here")
+library(here)
+
+
+
+
+#install and open library for sf()
+rivers_sf <- st_read((paste0(here(),"/data/rivs_CA_OR_hydroshed.shp") # fast!
+#since the below worked fine, no worries! either code works for me 
+rivers_sf <- st_read("../data/rivs_CA_OR_hydroshed.shp") # fast!
+
+
+
+
+st_crs(rivers_sf) #check coordinate reference syststem 
+
+class(rivers_sf) #check data class 
+
+install.packages("mapview")
+library(mapview)
+
+# mapview(rivers_sf)  # map -- IT WORKS!!! 
+
+```
+
+
+```{r countyState}
+
+library(USAboundaries)
+
+# Pick a State
+state_names <- c("california")
+
+# Download STATE data and add projection
+CA<-us_states(resolution = "high", states = state_names)
+
+st_crs(CA)
+
+
+
+
+# Pick some CA counties
+co_names <- c("Butte", "Placer", "El Dorado", "Nevada", "Yuba", "Sierra", "Plumas")
+
+# get COUNTY data for a given state
+counties_spec <- us_counties(resolution = "low", states=state_names) %>% # use list of state(s) here
+  filter(name %in% co_names) %>% # filter to just the counties we want
+  # add centroid values for labels using the geometry column
+  mutate(lon=map_dbl(geometry, ~st_centroid(.x)[[1]]), 
+         lat=map_dbl(geometry, ~st_centroid(.x)[[2]])) 
+
+
+#  %in% instead of filtering name=x name=y etc. Instead just give it the list. and if it matches it keeps it. 
+
+
+
+```
+
+
+
+###PLOTTING with sf
+```{r plottingSFbase}
+
+plot(st_geometry(CA))
+#OR
+plot(CA$geometry, col="red")
+
+
+```
+
+
+```{r advancedSFbase}
+
+# note adding some alpha adjustment here and using "cex" to make larger
+plot(counties_spec$geometry, col=adjustcolor("maroon", alpha=0.5), cex=1.5, axes=TRUE, main="Selected CA Counties")
+
+# now add rivers to existing plot, with add=TRUE
+plot(rivers_sf$geometry, col=adjustcolor("blue", alpha=0.7), add=TRUE)
+
+# now add some labels using the centroid lat/long we added earlier
+text(counties_spec$lon, counties_spec$lat, labels = counties_spec$name)
+
+
+```
+
+
+```{r cropSF}
+
+# crop rivers by counties
+rivers_crop <- st_intersection(rivers_sf, counties_spec) # warning is ok
+
+
+# crop rivers by counties
+rivers_crop <- st_intersection(rivers_sf, counties_spec) # warning is ok
+
+plot(rivers_crop$geometry, col="blue") # a quick plot check to make sure it worked
+
+```
+
+
+
+
+```{r bufferSF}
+
+county_buff <- st_buffer(counties_spec[counties_spec$name=="El Dorado",], dist = .05) # note this is a buffer of decimal degrees
+
+
+# now plot
+plot(counties_spec$geometry, axes=TRUE)
+plot(county_buff$geometry, border="maroon", col=adjustcolor("maroon", alpha=0.5), add=TRUE)
+
+```
+
+```{r mapview}
+
+library(mapview)
+
+#basic map - interactive! 
+mapview(rivers_crop) + mapview(counties_spec)
+
+# map to a value
+county_mapview_color<- mapview(counties_spec, zcol="aland")
+
+
+
+
+```
+
+
+# to save a mapview map, 2 options: 
+
+- one is to save from viewer in R studio 
+- two, using the 'mapshot' function in mapview
+
+```{r}
+mapshot(county_mapview_color, url = "count_mapview_color.html")
+```
+
+
+
+
+SWITCHING TO GGPLOT
+
+#using KML: https://ryanpeek.github.io/mapping-in-R-workshop/spatial_kml.html 
+
+
+### Using KML files
+
+```{r kml}
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(dplyr)
+  library(sf);
+  library(stringi)
+  })
+
+# https://waterwatch.usgs.gov/?m=stategage
+gages <- st_read(paste0(here(),"/data/streamgages_06.kml")) # reads kml but not kmz
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

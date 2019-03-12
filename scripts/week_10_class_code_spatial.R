@@ -1,5 +1,8 @@
 # Week10 - last week of R-DAVIS :( -- Spatial Data in R -- Ryan Peek
 
+# Ryan Peek's spatial website: https://ryanpeek.github.io/mapping-in-R-workshop/ 
+# R-Davis google doc: https://docs.google.com/document/d/1A7__xU5bnQMl2hC372Ovm2EIvy26sHDRj_A0V9u2OMo/edit 
+
 ## TOOLS
 install.packages("sf") 
 install.packages("viridis") 
