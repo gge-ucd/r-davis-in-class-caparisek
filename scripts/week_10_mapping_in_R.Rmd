@@ -233,15 +233,85 @@ gages <- st_read(paste0(here(),"/data/streamgages_06.kml")) # reads kml but not 
 
 ```
 
+```{r cleantext}
+
+# pull out relevant info (remove html tags)
+gages$name <- gsub(pattern="<.*?>", "", gages$Name)
+gages$details <- gsub(pattern="<.*?>", "", gages$Description)
+gages$site_no <- substr(gages$name, start = 1, stop = 8)
+gages$site <- substr(gages$name, start = 10, stop = nchar(gages$name))
+gages$date_s <- substr(gages$details, start=13, stop=22)
+gages$date_e <- substr(gages$details, start=32, stop=nchar(gages$details)-1)
+gages <- gages %>% dplyr::select(site_no:date_e)
+gages$gageID <- paste0("T", gages$site_no)
+
+# grep all sites with "AMERICAN", "DEER" or "BEAR" in site name
+gages_FILTER <- filter(gages, grepl(pattern = "AMERICAN|DEER|BEAR",site))
+
+
+```
+
+```{r ggplotSF}
+
+ggplot() +
+  labs(x="Longitude (WGS84)", y="Latitude",
+       title="USGS Gages in CA") + 
+  geom_sf(data=gages, col="blue", lwd=0.4, pch=21) +
+  theme_bw() +
+  geom_sf(data=gages_FILTER, col="orange", size=2.5)
+
+```
+
+# ggspatial package 
+# annotation_map_tile
+# annotation_scale
+# annotation_
+# tmap 
+
+
+#    tmap   or ggplot can add an "inset map" of where this in in CA 
+
+>> this is helpful and ... in cowplot? 
+
+> st_bounding_box
+> st_make_grid 
 
 
 
 
 
 
+### getting a CSV or x/y field 
 
 
+### Getting a CSV or X/Y fields into R and in SF format
 
+```{r}
+
+library(sharpshootR)  # CDEC.snow.courses, CDECquery, CDECsnowQuery
+
+data(CDEC.snow.courses)
+class(CDEC.snow.courses)
+
+# to make as SF
+
+#Make into a new dataframe
+snw <- CDEC.snow.courses
+
+# fix data formats...character/factor/numeric
+str(snw)
+snw$longitude<-as.numeric(snw$longitude)*-1 # fix longitude, must be negative for northern hemisphere
+
+# make spatial
+snw_sf <- st_as_sf(snw, 
+                   coords = c("longitude", "latitude"), # can use col names here too, i.e., c("longitude","latitude")
+                   remove = F, # don't remove these lat/lon cols from df
+                   crs = 4326) # add projection
+
+class(snw_sf)
+
+
+```
 
 
 
