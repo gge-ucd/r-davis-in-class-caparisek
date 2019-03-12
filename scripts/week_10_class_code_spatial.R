@@ -22,6 +22,11 @@ library(ggforce) # amazing cool package for labeling and fussing
 library(cowplot) ## MOOOOOOO!! for plotting multiple plots
 
 ## DATA
+install.packages("tigris") # ROAD/CENSU DATA, see also the "tidycensus" package
+install.packages("USAboundaries") # great package for getting state/county boundaries
+install.packages("sharpshootR")  # CDEC.snow.courses, CDECquery, CDECsnowQuery
+
+
 library(tigris) # ROAD/CENSU DATA, see also the "tidycensus" package
 library(USAboundaries) # great package for getting state/county boundaries
 library(sharpshootR)  # CDEC.snow.courses, CDECquery, CDECsnowQuery
