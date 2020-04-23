@@ -85,9 +85,9 @@ ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) +
           #Hint: Are you translating data to a visual feature of the plot?
   
 ggplot(gapminder, aes(x = gdpPercap, y = lifeExp, size=pop)) +  #need to put "size=pop" here bc geom doesn't have the data, it refers to the 1st line that does 
-  geom_point(aes(color = continent)) + 
+  geom_point(aes(alpha = 0.1, color = continent)) + 
   scale_x_log10() +
-  geom_smooth(method = 'lm', color = 'black', linetype = 'dashed') + 
+  geom_smooth(method = 'lm', color = 'black', linetype = 'solid') + 
   theme_bw()
 
 
