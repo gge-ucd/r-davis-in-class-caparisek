@@ -1,3 +1,17 @@
+---
+title: "Habits"
+output:
+  html_document:
+    toc: yes
+  pdf_document:
+    toc: yes
+pagetitle: Habits
+---
+```{r setup, include = FALSE}
+library(ggplot2)
+library(dplyr)
+```
+
 # Week 3 Assignment
 
 Hey folks! For this week, we're going to have you create a new GitHub repository/R Project that we'll be using for our in-class notes and work. This will mean we'll all be working on the same basic project structure, plus you'll be able to see each other's code on GitHub.
@@ -15,3 +29,15 @@ As always, let us know if you have any questions!
 
 [X]Completed by student
 []Checked by instructor
+
+
+rmarkdown::pandoc_version()
+getwd()
+.libPaths()
+devtools::install_github('rstudio/rmarkdown')
+
+![caption](/figures/hippothesis.jpg) 
+
+
+
+
