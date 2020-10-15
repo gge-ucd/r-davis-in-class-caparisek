@@ -36,7 +36,7 @@ getwd()
 .libPaths()
 devtools::install_github('rstudio/rmarkdown')
 
-![caption](/figures/hippothesis.jpg) 
+![caption](/figures/my_test_facet_plot.jpeg) 
 
 
 
